@@ -1,4 +1,3 @@
-// ===== DOM Elements =====
 const navbar = document.getElementById('navbar');
 const navMenu = document.getElementById('navMenu');
 const navToggle = document.getElementById('navToggle');
@@ -7,20 +6,17 @@ const scrollTopBtn = document.getElementById('scrollTop');
 const cursorGlow = document.getElementById('cursorGlow');
 const navLinks = document.querySelectorAll('.navbar__link');
 
-// ===== Navbar Scroll Effect =====
 let lastScroll = 0;
 
 window.addEventListener('scroll', () => {
   const currentScroll = window.pageYOffset;
 
-  // Add/remove scrolled class
   if (currentScroll > 50) {
     navbar.classList.add('scrolled');
   } else {
     navbar.classList.remove('scrolled');
   }
 
-  // Show/hide scroll to top
   if (currentScroll > 500) {
     scrollTopBtn.classList.add('visible');
   } else {
@@ -30,13 +26,11 @@ window.addEventListener('scroll', () => {
   lastScroll = currentScroll;
 });
 
-// ===== Mobile Menu Toggle =====
 navToggle.addEventListener('click', () => {
   navMenu.classList.toggle('open');
   menuOverlay.classList.toggle('active');
   document.body.style.overflow = navMenu.classList.contains('open') ? 'hidden' : '';
 
-  // Animate hamburger to X
   const lines = navToggle.querySelectorAll('line');
   if (navMenu.classList.contains('open')) {
     lines[0].setAttribute('x1', '6'); lines[0].setAttribute('y1', '6');
@@ -66,7 +60,6 @@ menuOverlay.addEventListener('click', () => {
   lines[2].setAttribute('x2', '21'); lines[2].setAttribute('y2', '18');
 });
 
-// Close menu on link click
 navLinks.forEach(link => {
   link.addEventListener('click', () => {
     navMenu.classList.remove('open');
@@ -82,7 +75,6 @@ navLinks.forEach(link => {
   });
 });
 
-// ===== Active Nav Link on Scroll =====
 const sections = document.querySelectorAll('section[id]');
 
 function highlightNavLink() {
@@ -106,12 +98,10 @@ function highlightNavLink() {
 
 window.addEventListener('scroll', highlightNavLink);
 
-// ===== Scroll to Top =====
 scrollTopBtn.addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
-// ===== Scroll Reveal Animation =====
 function revealOnScroll() {
   const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
 
@@ -129,7 +119,6 @@ function revealOnScroll() {
 window.addEventListener('scroll', revealOnScroll);
 window.addEventListener('load', revealOnScroll);
 
-// ===== Counter Animation =====
 function animateCounters() {
   const counters = document.querySelectorAll('.about__stat-number');
 
@@ -149,7 +138,6 @@ function animateCounters() {
       }
     };
 
-    // Use IntersectionObserver to trigger when visible
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -165,7 +153,6 @@ function animateCounters() {
 
 animateCounters();
 
-// ===== Cursor Glow Effect (Desktop only) =====
 if (window.matchMedia('(pointer: fine)').matches) {
   document.addEventListener('mousemove', (e) => {
     cursorGlow.style.left = e.clientX + 'px';
@@ -173,7 +160,6 @@ if (window.matchMedia('(pointer: fine)').matches) {
   });
 }
 
-// ===== Smooth Scroll for Nav Links =====
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     const targetId = this.getAttribute('href');
@@ -189,7 +175,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
-// ===== Typing Effect for Hero Greeting =====
 function typeWriter(element, text, speed = 60) {
   element.textContent = '';
   let i = 0;
@@ -213,7 +198,6 @@ window.addEventListener('load', () => {
   }
 });
 
-// ===== Staggered animation for skills tags =====
 const skillCategories = document.querySelectorAll('.skills__category');
 
 skillCategories.forEach(category => {
@@ -238,7 +222,6 @@ skillCategories.forEach(category => {
   observer.observe(category);
 });
 
-// ===== Parallax for floating icons =====
 const floatingIcons = document.querySelectorAll('.hero__floating');
 
 window.addEventListener('scroll', () => {
@@ -250,13 +233,11 @@ window.addEventListener('scroll', () => {
   });
 });
 
-// ===== Handle SVG line transitions for hamburger =====
 const hamburgerLines = navToggle.querySelectorAll('line');
 hamburgerLines.forEach(line => {
   line.style.transition = 'all 0.3s ease';
 });
 
-// ===== Contact Form Handler =====
 const contactForm = document.getElementById('contactForm');
 const formToast = document.getElementById('formToast');
 const formSubmitBtn = document.getElementById('form-submit');
@@ -265,24 +246,20 @@ if (contactForm) {
   contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    // Get form data
     const name = document.getElementById('form-name').value.trim();
     const email = document.getElementById('form-email').value.trim();
     const subject = document.getElementById('form-subject').value.trim();
     const message = document.getElementById('form-message').value.trim();
 
-    // Validate
     if (!name || !email || !message) {
       showToast('Por favor, preencha todos os campos obrigatórios.', 'error');
       return;
     }
 
-    // Show loading state
     const originalContent = formSubmitBtn.innerHTML;
     formSubmitBtn.disabled = true;
     formSubmitBtn.innerHTML = '<span class="spinner"></span> Enviando...';
-
-    // Try FormSubmit AJAX first (works when deployed on a real domain)
+    
     let sent = false;
     try {
       const response = await fetch('https://formsubmit.co/ajax/hanrry.jsantos@gmail.com', {
@@ -307,10 +284,8 @@ if (contactForm) {
         contactForm.reset();
       }
     } catch (error) {
-      // FormSubmit failed, use mailto fallback
     }
 
-    // Fallback: open email client with mailto
     if (!sent) {
       const mailSubject = encodeURIComponent(subject || 'Contato pelo Portfólio');
       const mailBody = encodeURIComponent(
@@ -323,7 +298,6 @@ if (contactForm) {
       contactForm.reset();
     }
 
-    // Restore button
     formSubmitBtn.disabled = false;
     formSubmitBtn.innerHTML = originalContent;
   });
@@ -333,7 +307,6 @@ function showToast(message, type) {
   formToast.textContent = message;
   formToast.className = 'contact__form-toast show ' + type;
 
-  // Auto-hide after 6 seconds
   setTimeout(() => {
     formToast.classList.remove('show');
   }, 6000);
