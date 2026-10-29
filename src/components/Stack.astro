@@ -1,0 +1,80 @@
+---
+import {
+  siApachekafka,
+  siDocker,
+  siFlyway,
+  siGithubactions,
+  siGrafana,
+  siHibernate,
+  siJsonwebtokens,
+  siJunit5,
+  siK6,
+  siMongodb,
+  siNginx,
+  siOpenjdk,
+  siPostgresql,
+  siRabbitmq,
+  siRedis,
+  siSpringboot,
+  siSpringsecurity,
+} from "simple-icons"
+import { accentBg, accentText, stack } from "@/data/site"
+
+// Logos do simple-icons; quem não tem logo lá (MapStruct, JaCoCo, AWS, OAuth...) ganha um selo com as iniciais
+const logos: Record<string, { path: string }> = {
+  "Java 21": siOpenjdk,
+  "Spring Boot": siSpringboot,
+  "JPA / Hibernate": siHibernate,
+  "Spring Security": siSpringsecurity,
+  JWT: siJsonwebtokens,
+  Nginx: siNginx,
+  RabbitMQ: siRabbitmq,
+  Kafka: siApachekafka,
+  PostgreSQL: siPostgresql,
+  MongoDB: siMongodb,
+  Redis: siRedis,
+  Flyway: siFlyway,
+  "JUnit 5": siJunit5,
+  k6: siK6,
+  Docker: siDocker,
+  "GitHub Actions": siGithubactions,
+  Grafana: siGrafana,
+}
+const initials = (tool: string) => tool.replace(/[^A-Za-z0-9 ]/g, "").split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase()
+---
+
+<section id="stack" aria-labelledby="stack-titulo" class="container-page py-20 md:py-28">
+  <div class="flex flex-wrap items-end justify-between gap-x-10 gap-y-3">
+    <h2 id="stack-titulo" data-reveal="chars" class="font-marker text-[clamp(3rem,12vw,6rem)] leading-none">STACK</h2>
+    <p class="max-w-md text-lg text-cinza">Ferramentas que uso do código à produção, organizadas por área.</p>
+  </div>
+
+  <ul class="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+    {stack.map((group, i) => (
+      <li data-stack-card class="flex flex-col rounded-2xl bg-ink-2 p-6 md:p-7">
+        <div class="flex items-center gap-3">
+          <span class:list={["font-marker text-2xl leading-none", accentText[group.accent]]}>{String(i + 1).padStart(2, "0")}</span>
+          <span aria-hidden="true" class:list={["h-0.5 w-6", accentBg[group.accent]]}></span>
+          <h3 class="text-lg font-semibold text-giz">{group.title}</h3>
+        </div>
+        <ul class="mt-6 grid grid-cols-2 gap-2.5">
+          {group.tools.map((tool) => {
+            const logo = logos[tool]
+            return (
+              <li data-pill class="flex items-center gap-3 rounded-xl bg-ink-3 px-3.5 py-3 text-[15px] font-medium text-giz">
+                {logo ? (
+                  <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" class:list={["size-5 shrink-0", accentText[group.accent]]}>
+                    <path d={logo.path} />
+                  </svg>
+                ) : (
+                  <span aria-hidden="true" class:list={["grid size-5 shrink-0 place-items-center rounded-md text-[9px] leading-none font-extrabold text-ink", accentBg[group.accent]]}>{initials(tool)}</span>
+                )}
+                {tool}
+              </li>
+            )
+          })}
+        </ul>
+      </li>
+    ))}
+  </ul>
+</section>

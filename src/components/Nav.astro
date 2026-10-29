@@ -1,0 +1,21 @@
+---
+import MobileMenu from "@/components/MobileMenu"
+import { nav } from "@/data/site"
+---
+
+<header data-nav class="fixed inset-x-0 top-0 z-50 transition-transform duration-300">
+  <div class="container-page flex items-center justify-between py-4 md:py-6">
+    <a href="#topo" class="font-marker text-2xl text-lime md:text-3xl" aria-label="Hanrry Santos, voltar ao topo">hanrry.</a>
+
+    <nav class="hidden items-center gap-8 md:flex lg:gap-10" aria-label="Principal">
+      {nav.map((link) => (
+        <a href={link.href} class="group relative text-[17px] font-medium">
+          {link.label}
+          <span class="absolute -bottom-1 left-0 h-0.5 w-full origin-left scale-x-0 bg-lime transition-transform duration-300 group-hover:scale-x-100" />
+        </a>
+      ))}
+    </nav>
+
+    <MobileMenu client:media="(max-width: 767px)" links={nav} />
+  </div>
+</header>

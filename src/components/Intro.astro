@@ -1,0 +1,95 @@
+---
+// Intro de carregamento no visual do ReconPay: um mini painel de fechamento que concilia
+// conforme fontes e imagens carregam, carimba "BATEU" e encolhe até virar a mancha roxa do hero (motion.ts).
+const steps = ["Importado", "Conciliado", "Zerar divergências", "Travar período"]
+---
+
+<script is:inline>
+  // Decide antes do overlay ser pintado: sem intro para quem prefere movimento reduzido
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    document.documentElement.classList.add("no-intro")
+  }
+</script>
+
+<div data-intro aria-hidden="true" class="fixed inset-0 z-[100] grid place-items-center bg-rp-ink text-giz">
+  <div data-intro-content class="flex w-full max-w-3xl flex-col items-center gap-8 px-5 md:gap-10">
+    <p class="flex items-center gap-2 text-sm text-giz/60">
+      <span class="font-semibold text-giz">ReconPay</span>
+      <span aria-hidden="true">·</span>
+      <span>fechamento do portfólio</span>
+    </p>
+
+    <div class="flex flex-col items-center gap-6 md:flex-row md:gap-12">
+      <!-- anel da taxa de conciliação -->
+      <div class="relative grid size-40 shrink-0 place-items-center md:size-48">
+        <svg viewBox="0 0 120 120" class="absolute inset-0 -rotate-90" fill="none">
+          <circle cx="60" cy="60" r="50" stroke="#2a2a2a" stroke-width="12"></circle>
+          <circle data-intro-ring cx="60" cy="60" r="50" stroke="var(--lime)" stroke-width="12" stroke-linecap="round"></circle>
+        </svg>
+        <span class="text-center">
+          <span data-intro-pct class="block text-4xl font-bold tracking-tight tabular-nums md:text-5xl">0%</span>
+          <span class="text-xs text-giz/60">conciliado</span>
+        </span>
+      </div>
+
+      <div class="relative flex flex-col items-center md:items-start">
+        <p class="-rotate-2 font-hand text-2xl text-lime md:text-3xl">caiu no banco</p>
+        <p data-intro-value class="font-marker text-[clamp(3rem,14vw,6.5rem)] leading-none whitespace-nowrap tabular-nums">R$&nbsp;0,00</p>
+        <p class="mt-2 font-mono text-xs text-giz/50">de R$&nbsp;100,00 esperado</p>
+
+        <dl class="mt-5 flex gap-8">
+          <div>
+            <dt class="text-xs text-giz/60">bateram</dt>
+            <dd data-intro-ok class="text-2xl font-bold text-lime tabular-nums">0</dd>
+          </div>
+          <div>
+            <dt class="text-xs text-giz/60">abertas</dt>
+            <dd data-intro-open class="text-2xl font-bold text-rp-red tabular-nums">10</dd>
+          </div>
+        </dl>
+
+        <span
+          data-intro-stamp
+          class="invisible absolute -top-10 -right-2 -rotate-12 rounded-2xl border-4 border-rp-ink bg-lime px-4 py-1.5 font-marker text-2xl text-rp-ink shadow-[5px_5px_0_var(--rp-red)] md:-top-8 md:-right-20 md:text-4xl"
+        >
+          BATEU ✓
+        </span>
+      </div>
+    </div>
+
+    <!-- etapas do fechamento, como no painel do ReconPay -->
+    <ol class="grid grid-cols-2 gap-2 md:flex md:items-center">
+      {steps.map((step, i) => (
+        <>
+          {i > 0 && <li aria-hidden="true" class="hidden h-0.5 w-6 bg-[#2a2a2a] md:block"></li>}
+          <li
+            data-intro-step
+            class="flex items-center gap-2 rounded-full border border-[#2a2a2a] px-3 py-2 text-xs text-giz/50 transition-colors duration-300 data-[on]:border-lime data-[on]:bg-lime data-[on]:font-semibold data-[on]:text-rp-ink"
+          >
+            <span class="grid size-5 place-items-center rounded-full bg-[#2a2a2a] text-[10px] text-giz transition-colors duration-300 in-data-[on]:bg-rp-ink in-data-[on]:text-lime">
+              {i + 1}
+            </span>
+            {step}
+          </li>
+        </>
+      ))}
+    </ol>
+  </div>
+</div>
+
+<style>
+  :global(.no-intro) [data-intro] {
+    display: none;
+  }
+
+  /* Rede de segurança: se o JS falhar, o overlay some sozinho */
+  [data-intro] {
+    animation: intro-failsafe 0s 8s forwards;
+  }
+  @keyframes intro-failsafe {
+    to {
+      visibility: hidden;
+      opacity: 0;
+    }
+  }
+</style>

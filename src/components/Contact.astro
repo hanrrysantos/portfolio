@@ -1,0 +1,62 @@
+---
+import { Mail, MessageCircle } from "@lucide/astro"
+import GithubIcon from "@/components/GithubIcon.astro"
+import { contact } from "@/data/site"
+
+const socials = [
+  { label: "GitHub", href: contact.github, icon: GithubIcon },
+  { label: "LinkedIn", href: contact.linkedin, icon: null },
+  { label: "WhatsApp", href: contact.whatsapp, icon: MessageCircle },
+]
+---
+
+<footer id="contato" class="relative overflow-hidden bg-roxo pt-36 pb-8 md:pt-28">
+
+  <div class="container-page relative text-center">
+    <h2 class="font-marker text-[clamp(3rem,12.5vw,7.5rem)] leading-[1.02]">
+      <span data-reveal="chars" class="block">BORA CONSTRUIR</span>
+      <span class="mt-2 flex flex-wrap items-center justify-center gap-x-6 gap-y-5 md:mt-0">
+        <span data-reveal="chars">ALGO</span>
+        <span class="relative inline-block px-3 text-lime">
+          ÉPICO?
+          <svg aria-hidden="true" viewBox="0 0 400 160" preserveAspectRatio="none" class="absolute -inset-x-4 -inset-y-3 h-[calc(100%+1.5rem)] w-[calc(100%+2rem)]" fill="none">
+            <path data-draw d="M210 8 C 90 4, 10 30, 12 82 C 14 136, 120 154, 230 150 C 340 146, 392 116, 390 74 C 388 30, 300 6, 170 14" stroke="currentColor" stroke-width="5" stroke-linecap="round"></path>
+          </svg>
+        </span>
+        <!-- selo girando: o texto roda em volta e o monograma fica parado no centro -->
+        <span aria-hidden="true" class="absolute -top-28 right-0 block size-28 font-sans md:relative md:top-auto md:right-auto md:size-36 lg:size-40">
+          <svg data-spin viewBox="0 0 200 200" class="size-full text-lime">
+            <defs><path id="selo-contato" d="M100 100 m-76 0 a76 76 0 1 1 152 0 a76 76 0 1 1 -152 0"></path></defs>
+            <text class="fill-current text-[17px] font-bold tracking-[0.2em] uppercase">
+              <textPath href="#selo-contato" textLength="470">disponível para estágio · vaga júnior ·</textPath>
+            </text>
+          </svg>
+          <span class="absolute inset-[27%] grid place-items-center rounded-full bg-lime font-marker text-xl text-roxo md:text-3xl">HS</span>
+        </span>
+      </span>
+    </h2>
+
+    <div class="mt-10 flex flex-col items-center gap-5 sm:flex-row sm:justify-center sm:gap-8 md:mt-14">
+      <a
+        href={`mailto:${contact.email}`}
+        data-magnetic
+        class="inline-flex items-center justify-center gap-3 rounded-full bg-lime px-6 py-4 text-lg font-bold text-ink sm:px-8 sm:py-5 sm:text-2xl"
+      >
+        <Mail class="size-6" /> {contact.email}
+      </a>
+      <ul class="flex gap-3">
+        {socials.map(({ label, href, icon: Icon }) => (
+          <li>
+            <a href={href} target="_blank" rel="noopener" aria-label={label} data-magnetic class="grid size-14 place-items-center rounded-full border-[1.5px] border-giz transition-colors hover:bg-giz hover:text-roxo md:size-16">
+              {Icon ? <Icon class="size-6" /> : <span class="font-marker text-xl leading-none">in</span>}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="mt-20 text-sm text-[#e9e3ff]">
+      <span>© {new Date().getFullYear()} Hanrry Santos</span>
+    </div>
+  </div>
+</footer>

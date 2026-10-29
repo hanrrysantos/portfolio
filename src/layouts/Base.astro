@@ -1,0 +1,45 @@
+---
+import "@/styles/global.css"
+
+interface Props {
+  title?: string
+  description?: string
+}
+
+const {
+  title = "Hanrry Santos | Desenvolvedor backend Java",
+  description = "Portfólio de Hanrry Santos, desenvolvedor backend Java de Parauapebas (PA). ReconPay, Mão Fechada, Inventory Manager e outros projetos com Spring Boot, PostgreSQL e AWS.",
+} = Astro.props
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="author" content="Hanrry Santos" />
+    <meta name="theme-color" content="#0d0e12" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>{title}</title>
+    <script is:inline>document.documentElement.classList.add("js")</script>
+  </head>
+  <body>
+    <slot />
+    <script>
+      import { initMotion } from "@/scripts/motion"
+
+      try {
+        initMotion()
+      } catch (error) {
+        // Se a animação quebrar, o conteúdo continua visível
+        document.documentElement.classList.remove("js")
+        console.error(error)
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+---
+import Base from "@/layouts/Base.astro"
+import Intro from "@/components/Intro.astro"
+import Nav from "@/components/Nav.astro"
+import Hero from "@/components/Hero.astro"
+import Marquee from "@/components/Marquee.astro"
+import Projects from "@/components/Projects.astro"
+import Timeline from "@/components/Timeline.astro"
+import Stack from "@/components/Stack.astro"
+import About from "@/components/About.astro"
+import Contact from "@/components/Contact.astro"
+---
+
+<Base>
+  <Intro />
+  <a href="#projetos" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:rounded-full focus:bg-lime focus:px-4 focus:py-2 focus:text-ink">
+    pular para os projetos
+  </a>
+  <Nav />
+  <main>
+    <Hero />
+    <Marquee />
+    <Projects />
+    <Timeline />
+    <Stack />
+    <About />
+  </main>
+  <Contact />
+</Base>
