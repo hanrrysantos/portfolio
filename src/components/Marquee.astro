@@ -1,0 +1,47 @@
+---
+import { Asterisk } from "@lucide/astro"
+import { marquee } from "@/data/site"
+
+const strips = [
+  { words: marquee.secondary, class: "bg-roxo text-giz top-4 rotate-[2.05deg] md:rotate-[1.88deg] xl:rotate-[1.7deg]", direction: 1 },
+  { words: marquee.primary, class: "strip-under bg-lime text-ink rotate-[0.95deg] md:rotate-[1.12deg] xl:rotate-[1.3deg]", direction: -1 },
+]
+---
+
+<div aria-hidden="true" class="relative z-20 -mt-20 h-36 overflow-x-clip md:-mt-24 md:h-48">
+  {strips.map((strip) => (
+    <div class:list={["absolute -inset-x-10 py-3 md:py-4", strip.class]}>
+      <div data-marquee={strip.direction} class="flex w-max">
+        {[0, 1].map(() => (
+          <div class="flex shrink-0 items-center gap-6 pr-6 md:gap-7 md:pr-7">
+            {[...strip.words, ...strip.words].map((word) => (
+              <>
+                <span class="font-marker text-2xl whitespace-nowrap md:text-[2.1rem]">{word}</span>
+                <Asterisk class="size-5 shrink-0 md:size-6" />
+              </>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  ))}
+</div>
+
+<style>
+  /* A roxa inclina um pouco mais que a verde: as duas encostam na borda esquerda e, à direita, a verde
+     só avança sobre o respiro de baixo da roxa. O topo usa vw porque a diferença de ângulo abre mais
+     em telas largas (69px/90px = topo da roxa + altura dela - 3px de sobreposição). */
+  .strip-under {
+    top: calc(69px - 50vw * 0.0192);
+  }
+  @media (width >= 48rem) {
+    .strip-under {
+      top: calc(90px - 50vw * 0.0133);
+    }
+  }
+  @media (width >= 80rem) {
+    .strip-under {
+      top: calc(90px - 50vw * 0.007);
+    }
+  }
+</style>

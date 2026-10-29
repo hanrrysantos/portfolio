@@ -1,0 +1,132 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/outfit";
+@import "@fontsource/permanent-marker";
+@import "@fontsource/caveat/600.css";
+
+@theme inline {
+  --font-sans: "Outfit Variable", system-ui, sans-serif;
+  --font-marker: "Permanent Marker", "Outfit Variable", cursive;
+  --font-hand: "Caveat", cursive;
+
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-line: var(--line);
+  --color-lime: var(--lime);
+  --color-roxo: var(--roxo);
+  --color-azul: var(--azul);
+  --color-laranja: var(--laranja);
+  --color-giz: var(--giz);
+  --color-cinza: var(--cinza);
+  --color-rp-ink: var(--rp-ink);
+  --color-rp-red: var(--rp-red);
+
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+}
+
+/* O site é só dark: os tokens do shadcn apontam para a paleta da V5.1 */
+:root {
+  --ink: #0d0e12;
+  --ink-2: #16181f;
+  --ink-3: #1e2029;
+  --line: #2a2c36;
+  --lime: #c6f432;
+  --roxo: #7c3aed;
+  --azul: #3ba4ff;
+  --laranja: #ff6b35;
+  --giz: #f4f4f5;
+  --cinza: #a1a1aa;
+
+  /* Paleta do ReconPay, usada na intro */
+  --rp-ink: #141414;
+  --rp-red: #ef5350;
+
+  --background: var(--ink);
+  --foreground: var(--giz);
+  --card: var(--ink-2);
+  --card-foreground: var(--giz);
+  --popover: var(--ink-2);
+  --popover-foreground: var(--giz);
+  --primary: var(--lime);
+  --primary-foreground: var(--ink);
+  --secondary: var(--ink-3);
+  --secondary-foreground: var(--giz);
+  --muted: var(--ink-3);
+  --muted-foreground: var(--cinza);
+  --accent: var(--ink-3);
+  --accent-foreground: var(--giz);
+  --destructive: #f0433a;
+  --border: var(--line);
+  --input: var(--line);
+  --ring: var(--lime);
+  --radius: 1rem;
+
+  color-scheme: dark;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+    -webkit-font-smoothing: antialiased;
+    /* O clip do body não chega à viewport: sem isto, selos e doodles no estado inicial
+       das animações (escalados) abrem rolagem horizontal no mobile */
+    overflow-x: clip;
+  }
+  body {
+    @apply bg-background text-foreground overflow-x-clip;
+  }
+  ::selection {
+    @apply bg-lime text-ink;
+  }
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+@utility container-page {
+  @apply mx-auto w-full max-w-[90rem] px-5 sm:px-8 lg:px-14;
+}
+
+/* Estado inicial dos elementos animados: só esconde quando o JS de animação vai rodar */
+@media (prefers-reduced-motion: no-preference) {
+  html.js [data-hero-in],
+  html.js [data-reveal="up"],
+  html.js [data-stack-card] {
+    visibility: hidden;
+  }
+}

@@ -1,0 +1,68 @@
+---
+import { Image } from "astro:assets"
+import { Crown, MessageCircle, Sparkles, Star, Zap } from "@lucide/astro"
+import LinkArrow from "@/components/LinkArrow.astro"
+import photo from "@/assets/hanrry-vr.png"
+---
+
+<section id="topo" class="relative overflow-hidden pt-28 md:pt-32 lg:flex lg:min-h-svh lg:flex-col">
+  <div aria-hidden="true" class="pointer-events-none absolute -bottom-52 -left-40 size-80 rounded-full bg-azul lg:-bottom-64 lg:-left-48 lg:size-[24rem]" data-float></div>
+
+  <div class="container-page relative grid gap-10 lg:flex-1 lg:grid-cols-[1.15fr_0.85fr] lg:gap-6">
+    <div class="relative z-10 lg:self-center lg:pb-36">
+      <p data-hero-in class="inline-flex items-center gap-2.5 rounded-full border border-line bg-ink-2 px-4 py-2 text-sm text-cinza">
+        <span class="relative flex size-2.5">
+          <span class="absolute inline-flex size-full animate-ping rounded-full bg-lime opacity-60"></span>
+          <span class="relative inline-flex size-2.5 rounded-full bg-lime"></span>
+        </span>
+        aberto a estágio e vaga júnior
+      </p>
+
+      <p data-hero-in class="mt-8 -mb-2 ml-1 rotate-3 font-hand text-4xl md:text-5xl">prazer, eu sou o</p>
+      <h1 class="relative font-marker leading-[0.95] tracking-[-0.03em]">
+        <span class="sr-only">Hanrry Santos, desenvolvedor backend Java</span>
+        <span aria-hidden="true" data-split="hero" class="block text-[clamp(4.75rem,23vw,13.5rem)] whitespace-nowrap lg:text-[min(10.2vw,12rem)]">HANRRY</span>
+        <Crown aria-hidden="true" data-doodle class="absolute -top-6 right-[8%] size-10 -rotate-12 text-lime md:size-14 lg:right-[14%]" />
+      </h1>
+      <svg aria-hidden="true" viewBox="0 0 620 40" class="-mt-1 w-full max-w-[min(100%,52rem)] text-lime" fill="none">
+        <path data-draw-hero d="M4 26 C 120 8, 260 34, 380 18 S 560 10, 616 22" stroke="currentColor" stroke-width="12" stroke-linecap="round"></path>
+      </svg>
+
+      <p data-hero-in class="mt-6 max-w-2xl text-xl leading-snug font-medium text-balance md:text-2xl">
+        Desenvolvedor backend Java focado em sistemas financeiros, com APIs confiáveis, integrações e dados consistentes.
+      </p>
+
+      <div data-hero-in class="mt-8 flex flex-wrap gap-3">
+        <a href="#projetos" data-magnetic class="group inline-flex items-center gap-3 rounded-full bg-lime py-2 pr-2 pl-7 text-[17px] font-bold text-ink">
+          ver projetos <LinkArrow direction="down" class="size-10 bg-ink text-lime" />
+        </a>
+        <a href="#contato" data-magnetic class="inline-flex items-center gap-2 rounded-full border-[1.5px] border-giz px-7 py-4 text-[17px] font-semibold">
+          fale comigo <MessageCircle class="size-[18px]" />
+        </a>
+      </div>
+    </div>
+
+    <figure class="relative mx-auto w-full max-w-[22rem] sm:max-w-[26rem] lg:max-w-none lg:self-end">
+      <div data-hero-blob="main" aria-hidden="true" class="absolute inset-x-[2%] top-[6%] aspect-square rounded-full bg-roxo"></div>
+      <div data-hero-blob aria-hidden="true" class="absolute -right-10 bottom-[8%] h-40 w-32 rounded-full bg-laranja lg:-right-24 lg:h-64 lg:w-52"></div>
+      <Image
+        src={photo}
+        alt="Hanrry sentado, usando um óculos de realidade virtual numa feira"
+        widths={[360, 520, 720]}
+        sizes="(min-width: 1024px) 34rem, 26rem"
+        loading="eager"
+        data-hero-photo
+        class="relative mx-auto block w-[78%] lg:w-[80%]"
+      />
+      <figcaption data-hero-in class="absolute -top-2 -right-3 max-w-[8rem] -rotate-6 font-hand text-[1.6rem] leading-none text-lime sm:right-0 sm:max-w-[9rem] lg:-right-4 lg:max-w-[11rem] lg:text-3xl">
+        testando VR numa feira
+      </figcaption>
+      <svg aria-hidden="true" viewBox="0 0 90 60" class="absolute top-[4%] left-[53%] w-10 text-lime sm:left-[56%] sm:w-12 lg:w-20" fill="none">
+        <path data-draw-hero d="M86 8 C 60 4, 30 18, 10 46 M10 46 L 24 40 M10 46 L 12 31" stroke="currentColor" stroke-width="3" stroke-linecap="round"></path>
+      </svg>
+      <Star aria-hidden="true" data-doodle class="absolute top-2 left-4 size-8 fill-yellow-300 text-yellow-300" />
+      <Zap aria-hidden="true" data-doodle class="absolute top-[38%] right-0 size-10 -rotate-12 fill-yellow-300 text-yellow-300" />
+      <Sparkles aria-hidden="true" data-doodle class="absolute bottom-6 left-[20%] size-8 text-azul" />
+    </figure>
+  </div>
+</section>

@@ -1,0 +1,45 @@
+---
+import { timeline } from "@/data/site"
+
+const tilt = ["-rotate-3", "rotate-2", "-rotate-2", "rotate-3", "-rotate-2", "rotate-2"]
+
+// Fio ondulado do desktop: uma onda por post-it
+let wave = "M 0 40"
+for (let x = 0; x < 1200; x += 100) wave += ` Q ${x + 50} ${x % 200 ? 10 : 70} ${x + 100} 40`
+---
+
+<section id="trajetoria" aria-labelledby="trajetoria-titulo" class="overflow-hidden bg-ink-2 py-20 md:py-28">
+  <div class="container-page">
+    <h2 id="trajetoria-titulo" data-reveal="chars" class="font-marker text-[clamp(2.75rem,11.5vw,6rem)] leading-none">TRAJETÓRIA</h2>
+
+    <div class="relative mt-14 lg:mt-20">
+      <!-- desktop: fio horizontal -->
+      <svg aria-hidden="true" viewBox="0 0 1200 80" preserveAspectRatio="none" class="absolute inset-x-0 -top-10 hidden h-20 w-full text-lime lg:block" fill="none">
+        <path data-draw-scrub d={wave} stroke="currentColor" stroke-width="4" stroke-linecap="round"></path>
+      </svg>
+      <!-- mobile: fio vertical -->
+      <span aria-hidden="true" data-grow class="absolute top-0 bottom-0 left-[1.65rem] w-[3px] origin-top rounded-full bg-lime lg:hidden"></span>
+
+      <ol class="relative flex flex-col gap-8 pl-14 lg:grid lg:grid-cols-6 lg:gap-6 lg:pl-0">
+        {timeline.map((item, i) => (
+          <li class:list={["relative lg:pt-6", i % 2 && "lg:mt-24"]}>
+            <span aria-hidden="true" class="absolute top-6 -left-[2.375rem] size-5 rounded-full border-4 border-ink-2 bg-lime lg:-top-[2.6rem] lg:left-1/2 lg:-translate-x-1/2"></span>
+            <div
+              data-postit
+              style={`background:${item.color}`}
+              class:list={["flex min-h-44 max-w-xs flex-col gap-2.5 p-5 text-ink shadow-[0_12px_20px_#00000066] lg:min-h-56", tilt[i]]}
+            >
+              <span class="font-marker text-xl">{item.date}</span>
+              <span class="leading-snug font-semibold">{item.title}</span>
+              <span class="mt-auto font-hand text-2xl text-ink/70">#{item.tag}</span>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+
+    <p class="mt-14 -rotate-2 text-right font-hand text-[2rem] leading-none text-lime md:text-[2.5rem]">
+      <a href="#contato" class="hover:underline">próximo capítulo: seu time?</a>
+    </p>
+  </div>
+</section>

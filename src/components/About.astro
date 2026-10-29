@@ -1,0 +1,44 @@
+---
+import { Image } from "astro:assets"
+import photo from "@/assets/hanrry-formatura.png"
+import { contact } from "@/data/site"
+---
+
+<section id="sobre" aria-labelledby="sobre-titulo" class="container-page pb-20 md:pb-28">
+  <div class="mx-auto max-w-4xl">
+    <a href={contact.github} target="_blank" rel="noopener" class="block text-center text-lg font-medium text-lime hover:underline">@hanrrysantos</a>
+
+    <p data-reveal="up" class="mt-6 text-lg leading-relaxed text-pretty text-zinc-300 md:text-[21px]">
+      Sou o Hanrry, desenvolvedor backend e estudante de Engenharia de Software na UEPA. Escolhi o backend porque é onde o sistema precisa estar correto, não apenas bonito.
+    </p>
+
+    <!-- título gigante com o retrato sobreposto, ancorado na base -->
+    <div class="relative mt-10 md:mt-14">
+      <h2 id="sobre-titulo" class="text-right font-marker leading-[0.82] text-lime">
+        <span data-reveal="chars" class="block text-[clamp(4.5rem,21vw,12.5rem)]">SOBRE</span>
+        <span data-reveal="chars" class="block text-[clamp(4.5rem,21vw,12.5rem)]">MIM</span>
+      </h2>
+      <Image
+        src={photo}
+        alt="Hanrry Santos sorrindo, de beca na formatura"
+        widths={[260, 376]}
+        sizes="(min-width: 768px) 24rem, 46vw"
+        data-reveal="up"
+        class="absolute bottom-0 left-0 z-10 w-[46%] max-w-sm"
+      />
+    </div>
+
+    <p data-reveal="up" class="mt-10 text-lg leading-relaxed text-pretty text-zinc-300 md:mt-14 md:text-[21px]">
+      Além do código, sou Google Student Ambassador na universidade, faço iniciação científica no SoftLab e participo do projeto PET-Saúde sobre clima nas UBSs da cidade.
+    </p>
+
+    <p aria-hidden="true" class="mt-10 text-right font-hand text-[clamp(2.5rem,7vw,3.75rem)] leading-none text-giz">
+      <span class="relative inline-block -rotate-3">
+        Hanrry Santos
+        <svg viewBox="0 0 300 24" preserveAspectRatio="none" class="absolute -bottom-3 left-[-8%] h-4 w-[116%] text-giz" fill="none">
+          <path data-draw d="M4 16 C 60 6, 140 20, 210 12 S 280 6, 296 10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"></path>
+        </svg>
+      </span>
+    </p>
+  </div>
+</section>

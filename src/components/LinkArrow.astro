@@ -1,0 +1,23 @@
+---
+import { arrowPaths } from "@/lib/arrow"
+
+interface Props {
+  direction?: keyof typeof arrowPaths
+  class?: string
+}
+
+const { direction = "up-right", class: className } = Astro.props
+const d = arrowPaths[direction]
+
+// No hover do link (precisa de `group` no <a>), a seta sai pela ponta e uma nova entra pela cauda
+const exit = direction === "down" ? "group-hover:translate-y-[170%]" : "group-hover:translate-x-[170%] group-hover:-translate-y-[170%]"
+const enter = direction === "down" ? "-translate-y-[170%]" : "-translate-x-[170%] translate-y-[170%]"
+---
+
+<span aria-hidden="true" class:list={["relative inline-grid shrink-0 place-items-center overflow-hidden rounded-full", className]}>
+  {[exit, `absolute ${enter} group-hover:translate-x-0 group-hover:translate-y-0`].map((motion) => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class:list={["size-[62%] transition-transform duration-300 ease-out", motion]}>
+      <path d={d} />
+    </svg>
+  ))}
+</span>

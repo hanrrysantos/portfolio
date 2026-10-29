@@ -1,0 +1,63 @@
+---
+import CaseStudy from "@/components/CaseStudy.astro"
+import GithubIcon from "@/components/GithubIcon.astro"
+import { accentBg, accentText, contact, otherProjects, projects } from "@/data/site"
+
+// Classes completas para o Tailwind detectar
+const accentHoverBorder = { lime: "hover:border-lime", laranja: "hover:border-laranja", azul: "hover:border-azul", roxo: "hover:border-roxo" }
+---
+
+<section id="projetos" aria-labelledby="projetos-titulo" class="pt-16 md:pt-24">
+  <div class="container-page flex flex-wrap items-end justify-between gap-x-10 gap-y-3">
+    <div class="flex items-center gap-4">
+      <h2 id="projetos-titulo" data-reveal="chars" class="font-marker text-[clamp(3.5rem,15vw,7.5rem)] leading-none">PROJETOS</h2>
+      <svg aria-hidden="true" viewBox="0 0 160 30" class="hidden w-28 text-roxo sm:block md:w-40" fill="none">
+        <path data-draw d="M4 15 Q 24 0 44 15 T 84 15 T 124 15 T 156 15" stroke="currentColor" stroke-width="6" stroke-linecap="round"></path>
+      </svg>
+    </div>
+    <p class="-rotate-3 font-hand text-[1.75rem] leading-none text-cinza md:text-3xl">os três que eu mais<br />me orgulho de ter feito</p>
+  </div>
+
+  {projects.map((project, i) => <CaseStudy project={project} flip={i % 2 === 1} />)}
+
+  <div class="container-page pt-10 pb-20 md:pt-16 md:pb-28">
+    <div class="flex flex-wrap items-end justify-between gap-3">
+      <h3 data-reveal="chars" class="font-marker text-[clamp(2rem,8vw,3rem)] leading-none">OUTROS PROJETOS</h3>
+      <a href={contact.github} target="_blank" rel="noopener" class="group inline-flex items-center gap-2 font-semibold text-cinza transition-colors hover:text-giz">
+        <GithubIcon class="size-4" /> <span class="underline decoration-line underline-offset-4 transition-colors group-hover:decoration-giz">ver mais no GitHub</span>
+      </a>
+    </div>
+    <ul class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {otherProjects.map((p, i) => {
+        // Continua a numeração dos cases (01–03)
+        const number = String(projects.length + i + 1).padStart(2, "0")
+        return (
+          <li data-reveal="up">
+            <a
+              href={p.href}
+              target="_blank"
+              rel="noopener"
+              class:list={["group flex h-full flex-col rounded-2xl border border-line bg-ink-2 p-6 transition duration-300 hover:-translate-y-1", accentHoverBorder[p.accent]]}
+            >
+              <span class="flex items-center justify-between gap-3">
+                <span class="flex items-center gap-2.5">
+                  <span class:list={["font-marker text-2xl leading-none", accentText[p.accent]]}>{number}</span>
+                  <span aria-hidden="true" class:list={["h-0.5 w-5 shrink-0", accentBg[p.accent]]}></span>
+                  <span class="text-[11px] font-semibold tracking-[0.14em] text-cinza uppercase">{p.category}</span>
+                </span>
+                <GithubIcon class="size-5 shrink-0 text-cinza transition-colors group-hover:text-giz" />
+              </span>
+              <span class="mt-5 text-lg font-semibold text-giz">{p.name}</span>
+              <span class="mt-2 text-[15px] leading-snug text-cinza">{p.description}</span>
+              <span class="mt-auto flex flex-wrap gap-1.5 pt-5">
+                {p.stack.map((tool) => (
+                  <span class="rounded-full border border-line px-2.5 py-0.5 text-xs font-medium text-zinc-300">{tool}</span>
+                ))}
+              </span>
+            </a>
+          </li>
+        )
+      })}
+    </ul>
+  </div>
+</section>
